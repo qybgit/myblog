@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class ArticleVo {
-    private  String id;
+    private  Long id;
     private String title;
     private String createDate;
     private String updateDate;
@@ -13,6 +13,6 @@ public class ArticleVo {
     private Category category;
     private ArticleBodyVo articleBodyVo;
     private CommentVo commentVo;
-    private int author_id;
+    private long author_id;
 //    private int body_id;
 }

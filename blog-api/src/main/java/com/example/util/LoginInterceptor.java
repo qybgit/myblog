@@ -30,7 +30,7 @@ public class LoginInterceptor implements  HandlerInterceptor {
         }
         SysUser sysUser=service.checkToken(token);
         if (sysUser==null){
-            Result result=new Result(400,"请重新登录",null);
+            Result result=new Result(401,"token失效请重新登录",null);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().print(JSON.toJSON(result));
             return false;

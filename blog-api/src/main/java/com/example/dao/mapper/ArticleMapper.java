@@ -32,4 +32,7 @@ public interface ArticleMapper {
 
     @Update("update my_article set body_id=#{body_id} where id=#{id}")
     void update(Integer body_id,long id);
+
+    @Select("SELECT COUNT(*) from my_article")
+    int articleCount();
 }

@@ -1,9 +1,7 @@
 package com.example.service.impl;
-
 import com.example.dao.mapper.CategoryMapper;
 import com.example.dao.pojo.Article;
 import com.example.dao.pojo.Category;
-import com.example.service.ArticleService;
 import com.example.service.CategoryService;
 import com.example.vo.Result;
 import org.springframework.stereotype.Service;

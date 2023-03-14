@@ -10,7 +10,6 @@ import com.example.vo.TokenVo;
 import com.example.vo.params.Account;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;

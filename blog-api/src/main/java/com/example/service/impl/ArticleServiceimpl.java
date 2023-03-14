@@ -1,12 +1,10 @@
 package com.example.service.impl;
-
 import com.example.dao.mapper.ArticleMapper;
 import com.example.dao.pojo.Article;
 import com.example.dao.pojo.ArticleBody;
 import com.example.dao.pojo.Category;
 import com.example.dao.pojo.SysUser;
 import com.example.service.ArticleService;
-import com.example.service.CategoryService;
 import com.example.service.CommentService;
 import com.example.util.UserThreadLocal;
 import com.example.vo.ArticleBodyVo;
@@ -15,8 +13,11 @@ import com.example.vo.CommentVo;
 import com.example.vo.Result;
 import com.example.vo.params.ArticleBodyParam;
 import com.example.vo.params.ArticleParam;
+import com.example.vo.params.PageParams;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;
@@ -44,9 +45,18 @@ public class ArticleServiceimpl implements ArticleService {
      * @return
      */
     @Override
-    public Result findAllArticle() {
+    public Result findAllArticle(PageParams params) {
+        if (params.getPage()==0||params.getPage()==null&&params.getPageSize()==0||params.getPageSize()==null){
+            return Result.fail(400,"参数错误",null);
+        }
+        PageHelper.startPage(params.getPage(),params.getPageSize());
+        //        /**
+//         * PageHelper 能给下面运行的sql语句插入limit
+//         * 实现分页置顶排序
+//         */
         List<Article> articleList = articleMapper.findAllArticle();
-        List<ArticleVo> articleVoList = copyList(articleList, false, false);
+        PageInfo<Article> pageInfo=new PageInfo<>(articleList);
+        List<ArticleVo> articleVoList = copyList(pageInfo.getList(), false, false);
         return Result.success(articleVoList);
     }
 
@@ -121,6 +131,12 @@ public class ArticleServiceimpl implements ArticleService {
 
 
         return Result.success("发布成功");
+    }
+
+    @Override
+    public Result articleCount() {
+        int count=articleMapper.articleCount();
+        return Result.success(count);
     }
 
     /**

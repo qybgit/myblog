@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.service.ArticleService;
 import com.example.vo.Result;
 import com.example.vo.params.ArticleParam;
+import com.example.vo.params.PageParams;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,8 @@ public class ArticleController {
      * 所有文章
      */
     @RequestMapping("all")
-    public Result all() {
-        return articleService.findAllArticle();
+    public Result all(@RequestBody PageParams params) {
+        return articleService.findAllArticle(params);
     }
 
     /**
@@ -42,5 +43,8 @@ public class ArticleController {
         return articleService.addArticle(articleParam);
 
     }
-
+    @GetMapping("count")
+    public Result count(){
+        return  articleService.articleCount();
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.service.impl;
 
 import com.example.dao.mapper.TagMapper;
-import com.example.dao.pojo.Article;
 import com.example.dao.pojo.Tag;
 import com.example.service.TagService;
 import com.example.vo.Result;
