@@ -41,8 +41,6 @@ Long b=a.getTime();
     }
     @Test
     public void test1(){
-        Comment comment=commentMapper.findCommentByArticleId(1);
-        System.out.println(comment);
     }
     @Test
     public void test2(){

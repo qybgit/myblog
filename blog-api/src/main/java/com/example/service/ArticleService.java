@@ -19,4 +19,6 @@ public interface ArticleService {
     Result addArticle(ArticleParam articleParam);
 
     Result articleCount();
+
+    Result alls();
 }

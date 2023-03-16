@@ -31,11 +31,11 @@ public class CommentServiceimpl implements CommentService {
      * @return
      */
     @Override
-    public CommentVo findCommentByArticleId(long id) {
-        Comment comment = commentMapper.findCommentByArticleId(id);
+    public List<CommentVo> findCommentByArticleId(long id) {
+        List<Comment> comment = commentMapper.findCommentByArticleId(id);
         if (comment == null)
             return null;
-        CommentVo commentVo = copyComment(comment,id);
+       List<CommentVo>  commentVo = copyCommentList(comment,id);
         return commentVo;
 
     }
@@ -48,7 +48,14 @@ public class CommentServiceimpl implements CommentService {
         BeanUtils.copyProperties(commentParam,comment);
         return null;
     }
-
+    private List<CommentVo> copyCommentList(List<Comment> commentList,long id){
+         List<CommentVo> commentVoList=new ArrayList<>();
+         for (Comment comment:commentList){
+             CommentVo commentVo=copyComment(comment,id);
+             commentVoList.add(commentVo);
+         }
+         return commentVoList;
+    }
     private CommentVo copyComment(Comment comment,long id) {
         SysUserVo author = sysUserService.selectUserById(comment.getAuthor_id());
         SysUserVo sysUser = sysUserService.selectUserById(comment.getTo_uid());

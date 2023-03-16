@@ -139,6 +139,13 @@ public class ArticleServiceimpl implements ArticleService {
         return Result.success(count);
     }
 
+    @Override
+    public Result alls() {
+        List<Article> articles=articleMapper.alls();
+        List<ArticleVo> articleVoList=copyList(articles,false,false);
+        return Result.success(articleVoList);
+    }
+
     /**
      * 更新文章
      * @param body_id
@@ -211,8 +218,8 @@ public class ArticleServiceimpl implements ArticleService {
     public ArticleVo copy(Article article, boolean isBody, boolean isComment) {
         ArticleVo articleVo = new ArticleVo();
         BeanUtils.copyProperties(article, articleVo);
-        articleVo.setCreateDate(new DateTime(article.getCreateDate()).toString("yyyy-mm-dd hh-mm"));
-        articleVo.setUpdateDate(new DateTime(article.getUpdateDate()).toString("yyyy-mm-dd hh-mm"));
+        articleVo.setCreateDate(new DateTime(article.getCreateDate()).toString("yyyy-MM-dd HH:mm"));
+        articleVo.setUpdateDate(new DateTime(article.getUpdateDate()).toString("yyyy-MM-dd HH:mm"));
         Category category = categoryService.findById(article.getCategory_id());
         articleVo.setCategory(category);
         if (isBody) {
@@ -222,8 +229,8 @@ public class ArticleServiceimpl implements ArticleService {
             articleVo.setArticleBodyVo(articleBodyVo);
         }
         if (isComment) {
-            CommentVo commentVo = commentService.findCommentByArticleId(article.getId());
-            if (commentVo == null) {
+            List<CommentVo> commentVo = commentService.findCommentByArticleId(article.getId());
+            if (commentVo.size()==0) {
                 articleVo.setCommentVo(null);
             } else {
                 articleVo.setCommentVo(commentVo);

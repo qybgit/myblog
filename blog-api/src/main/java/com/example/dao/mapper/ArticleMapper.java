@@ -35,4 +35,7 @@ public interface ArticleMapper {
 
     @Select("SELECT COUNT(*) from my_article")
     int articleCount();
+
+    @Select("select * from my_article")
+    List<Article> alls();
 }

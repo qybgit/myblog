@@ -46,5 +46,10 @@ public class ArticleController {
     @GetMapping("count")
     public Result count(){
         return  articleService.articleCount();
+
+    }
+    @PostMapping("alls")
+    public Result alls(){
+        return articleService.alls();
     }
 }
