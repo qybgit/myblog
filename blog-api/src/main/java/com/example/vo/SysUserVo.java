@@ -1,8 +1,10 @@
 package com.example.vo;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class SysUserVo {
     private long id;
     private String account;

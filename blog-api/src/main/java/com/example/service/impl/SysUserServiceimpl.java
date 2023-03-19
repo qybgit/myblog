@@ -28,10 +28,11 @@ public class SysUserServiceimpl implements SysUserService {
 
     @Override
     public SysUser checkToken(String token) {
+
         Map<String,Object> map=JwtUtil.checkToken(token);
         if (map==null)
             return null;
-        String o=  redisTemplate.opsForValue().get("Token_"+token);
+        String o=  redisTemplate.opsForValue().get(token);
         SysUser sysUser=JSON.parseObject(o,SysUser.class);
 
 
@@ -41,6 +42,7 @@ public class SysUserServiceimpl implements SysUserService {
     private SysUserVo copyUser(SysUser sysUser) {
         SysUserVo sysUserVo=new SysUserVo();
         BeanUtils.copyProperties(sysUser,sysUserVo);
+
         return sysUserVo;
 
     }

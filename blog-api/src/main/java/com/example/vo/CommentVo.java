@@ -11,7 +11,6 @@ public class CommentVo {
     private String content;
     private String createDate;
     private int level;
-    private SysUserVo author;
     private SysUserVo toUser;
     private List<CommentVo> children;
 }

@@ -1,6 +1,7 @@
 package com.example.dao.mapper;
 
 import com.example.dao.pojo.Comment;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -13,4 +14,8 @@ public interface CommentMapper {
 
     @Select("select * from my_comment where parent_id=#{id} and article_id=#{article_id}")
     List<Comment> findCommentByparentId(long id,long article_id);
+
+    @Insert("insert into my_comment(content,createDate,article_id,parent_id,to_uid,level) values(#{content},#{createDate},#{article_id},#{parent_id},#{to_uid},#{level})")
+    void insertComment(Comment comment);
+
 }

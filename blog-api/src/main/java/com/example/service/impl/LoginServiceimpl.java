@@ -70,10 +70,11 @@ public class LoginServiceimpl implements LoginService {
         if (!pwd.equals(sysUser.getPassword())){
             return Result.fail(400,"密码错误",null);
         }
+
         String token= JwtUtil.createToken(sysUser.getId());
-        TokenVo token1=new TokenVo(sysUser.getAccount(),token);
-        redisTemplate.opsForValue().set("Token_"+token, JSON.toJSONString(sysUser));
-        redisTemplate.expire("Token_"+token, 60*60*8, TimeUnit.SECONDS);
+        TokenVo token1=new TokenVo(sysUser.getNickName(),token);
+        redisTemplate.opsForValue().set(token, JSON.toJSONString(sysUser));
+        redisTemplate.expire(token, 60*60*8, TimeUnit.SECONDS);
 
         return Result.success(token1);
     }

@@ -1,8 +1,10 @@
 package com.example.dao.pojo;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class Comment {
     private long id;
     private String content;
@@ -10,6 +12,5 @@ public class Comment {
     private long article_id;
     private long parent_id;
     private long to_uid;
-    private long author_id;
     private int level;
 }

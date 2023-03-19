@@ -43,6 +43,11 @@ public class ArticleController {
         return articleService.addArticle(articleParam);
 
     }
+
+    /**
+     * 文章数量
+     * @return
+     */
     @GetMapping("count")
     public Result count(){
         return  articleService.articleCount();

@@ -7,6 +7,7 @@ import com.example.vo.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Resource;
@@ -20,7 +21,10 @@ public class LoginInterceptor implements  HandlerInterceptor {
     SysUserService service;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token=request.getHeader("Authorization");
+        if (!(handler instanceof HandlerMethod))
+            return true;//访问静态找资源
+        String token=request.getHeader("authorization");
+
         if (StringUtils.isBlank(token)){
             Result result=new Result(400,"请登录",null);
             response.setContentType("application/json;charset=utf-8");
@@ -28,9 +32,10 @@ public class LoginInterceptor implements  HandlerInterceptor {
             return false;
 
         }
+        token=token.substring(7);
         SysUser sysUser=service.checkToken(token);
         if (sysUser==null){
-            Result result=new Result(401,"token失效请重新登录",null);
+            Result result=new Result(407,"token失效请重新登录",null);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().print(JSON.toJSON(result));
             return false;
