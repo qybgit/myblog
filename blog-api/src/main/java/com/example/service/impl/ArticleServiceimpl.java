@@ -1,9 +1,6 @@
 package com.example.service.impl;
 import com.example.dao.mapper.ArticleMapper;
-import com.example.dao.pojo.Article;
-import com.example.dao.pojo.ArticleBody;
-import com.example.dao.pojo.Category;
-import com.example.dao.pojo.SysUser;
+import com.example.dao.pojo.*;
 import com.example.service.ArticleService;
 import com.example.service.CommentService;
 import com.example.util.UserThreadLocal;
@@ -56,7 +53,7 @@ public class ArticleServiceimpl implements ArticleService {
 //         */
         List<Article> articleList = articleMapper.findAllArticle();
         PageInfo<Article> pageInfo=new PageInfo<>(articleList);
-        List<ArticleVo> articleVoList = copyList(pageInfo.getList(), false, false);
+        List<ArticleVo> articleVoList = copyList(pageInfo.getList(), false, false,false);
         return Result.success(articleVoList);
     }
 
@@ -88,7 +85,7 @@ public class ArticleServiceimpl implements ArticleService {
      */
     @Override
     public Result selectArticle(int id) {
-        return Result.success(copy(categoryService.selectArticle(id), false, false));
+        return Result.success(copy(categoryService.selectArticle(id), false, false,false));
     }
 
     /**
@@ -99,7 +96,7 @@ public class ArticleServiceimpl implements ArticleService {
     @Override
     public Result findArticle(Long id) {
         Article article = articleMapper.selectArticleById(id);
-        ArticleVo articleVo = copy(article, true, true);
+        ArticleVo articleVo = copy(article, true, true,true);
 
         return Result.success(articleVo);
     }
@@ -142,7 +139,7 @@ public class ArticleServiceimpl implements ArticleService {
     @Override
     public Result alls() {
         List<Article> articles=articleMapper.alls();
-        List<ArticleVo> articleVoList=copyList(articles,false,false);
+        List<ArticleVo> articleVoList=copyList(articles,false,false,false);
         return Result.success(articleVoList);
     }
 
@@ -202,20 +199,20 @@ public class ArticleServiceimpl implements ArticleService {
     public ArticleVo selectArticleById(Long l) {
         Article article = articleMapper.selectById(l);
 
-        return copy(article, false, false);
+        return copy(article, false, false,false);
     }
 
     //复制属性
-    public List<ArticleVo> copyList(List<Article> articleList, boolean isBody, boolean isComment) {
+    public List<ArticleVo> copyList(List<Article> articleList, boolean isBody, boolean isComment,boolean isTag) {
         List<ArticleVo> articleVoList = new ArrayList<>();
         for (Article article : articleList) {
-            ArticleVo articleVo = copy(article, isBody, isComment);
+            ArticleVo articleVo = copy(article, isBody, isComment,isTag);
             articleVoList.add(articleVo);
         }
         return articleVoList;
     }
 
-    public ArticleVo copy(Article article, boolean isBody, boolean isComment) {
+    public ArticleVo copy(Article article, boolean isBody, boolean isComment,boolean isTag) {
         ArticleVo articleVo = new ArticleVo();
         BeanUtils.copyProperties(article, articleVo);
         articleVo.setCreateDate(new DateTime(article.getCreateDate()).toString("yyyy-MM-dd HH:mm"));
@@ -235,6 +232,10 @@ public class ArticleServiceimpl implements ArticleService {
             } else {
                 articleVo.setCommentVo(commentVo);
             }
+        }
+        if (isTag){
+            List<Tag> tags=tagService.selectByArticleId(articleVo.getId());
+            articleVo.setTags(tags);
         }
         return articleVo;
     }

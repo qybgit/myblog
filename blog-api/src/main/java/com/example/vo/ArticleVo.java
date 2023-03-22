@@ -1,6 +1,7 @@
 package com.example.vo;
 
 import com.example.dao.pojo.Category;
+import com.example.dao.pojo.Tag;
 import lombok.Data;
 
 import java.util.List;
@@ -16,5 +17,6 @@ public class ArticleVo {
     private ArticleBodyVo articleBodyVo;
     private List<CommentVo> commentVo;
     private long author_id;
+    private List<Tag> tags;
 //    private int body_id;
 }

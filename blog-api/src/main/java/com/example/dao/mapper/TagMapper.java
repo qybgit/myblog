@@ -13,8 +13,8 @@ public interface TagMapper {
     @Select("select * from my_tag")
     List<Tag> selectAll();
 
-    @Select("select * from Article")
-    List<Integer> selectArticleById(int id);
+    @Select("SELECT my_tag.id,my_tag.tag_name from my_article JOIN my_tag_article ON my_article.id=my_tag_article.article_id JOIN my_tag ON my_tag_article.tag_id=my_tag.id where my_article.id=#{id}")
+    List<Tag> selectArticleById(Long id);
 
     @Select("select article_id from my_tag_article where Tag_id=#{id}" )
     List<Long> selectAListId(Long id);

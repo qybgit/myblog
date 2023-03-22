@@ -58,7 +58,7 @@ public class CommentServiceimpl implements CommentService {
         comment.setCreateDate(System.currentTimeMillis());
         BeanUtils.copyProperties(commentParam,comment);
         if (insertComment(comment)){
-return Result.success("评论成功");
+return Result.success(comment.getId()   );
         }else
         return Result.fail(405,"评论失败",null);
     }

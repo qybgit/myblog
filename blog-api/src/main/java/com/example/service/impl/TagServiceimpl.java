@@ -21,11 +21,27 @@ public class TagServiceimpl implements TagService {
         return Result.success(tagList);
     }
 
+    /**
+     * 添加标签
+     * @param nickname
+     * @return
+     */
     @Override
     public Result addTag(String nickname) {
         if (!addTAG(nickname))
             return Result.fail(400,"添加失败",null);
         return Result.success("添加成功");
+    }
+
+    /**
+     * 查找文章标签
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Tag> selectByArticleId(Long id) {
+        List<Tag> tags=tagMapper.selectArticleById(id);
+        return tags;
     }
 
     @Rollback
