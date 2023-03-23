@@ -6,4 +6,5 @@ import lombok.Data;
 public class Category {
     private int id;
     private String category_name;
+    private int count;
 }

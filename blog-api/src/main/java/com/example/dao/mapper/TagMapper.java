@@ -21,4 +21,10 @@ public interface TagMapper {
 
     @Insert("insert into my_tag(tag_name) values(#{nickname})")
     void insertTag(String nickname);
+
+    @Select("select count(*) from my_tag_article where tag_id=#{id}")
+    int findCount(int id);
+
+    @Select("select count(*) from my_tag")
+    int findTagCount();
 }

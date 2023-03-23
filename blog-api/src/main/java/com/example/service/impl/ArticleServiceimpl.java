@@ -85,7 +85,7 @@ public class ArticleServiceimpl implements ArticleService {
      */
     @Override
     public Result selectArticle(int id) {
-        return Result.success(copy(categoryService.selectArticle(id), false, false,false));
+        return Result.success(copyList(categoryService.selectArticle(id), false, false,false));
     }
 
     /**

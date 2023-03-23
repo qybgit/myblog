@@ -40,4 +40,11 @@ public class TagController {
         return tagService.addTag(tag.getTag_Name());
 
     }
+    /**
+     * 评论总数
+     */
+    @GetMapping("/count")
+    public Result tagCount(){
+        return tagService.selectCount();
+    }
 }

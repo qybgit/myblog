@@ -12,4 +12,6 @@ public interface TagService {
     Result addTag(String nickname);
 
     List<Tag> selectByArticleId(Long id);
+
+    Result selectCount();
 }

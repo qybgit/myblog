@@ -18,7 +18,17 @@ public class TagServiceimpl implements TagService {
     @Override
     public Result selectAll() {
         List<Tag> tagList=tagMapper.selectAll();
+        for(Tag tag:tagList){
+            int count=findCount(tag);
+            tag.setCount(count);
+        }
         return Result.success(tagList);
+    }
+//评论数量
+    private int findCount(Tag tag) {
+
+        int count=tagMapper.findCount(tag.getId());
+        return  count;
     }
 
     /**
@@ -42,6 +52,12 @@ public class TagServiceimpl implements TagService {
     public List<Tag> selectByArticleId(Long id) {
         List<Tag> tags=tagMapper.selectArticleById(id);
         return tags;
+    }
+
+    @Override
+    public Result selectCount() {
+        int count=tagMapper.findTagCount();
+        return Result.success(count);
     }
 
     @Rollback

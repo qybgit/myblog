@@ -36,8 +36,8 @@ public class CategoryServiceimpl implements CategoryService {
     }
 
 
-    public Article selectArticle(int id) {
-        Article article=categoryMapper.selectArticle(id);
+    public List<Article> selectArticle(int id) {
+        List<Article> article=categoryMapper.selectArticle(id);
         return article;
     }
 }

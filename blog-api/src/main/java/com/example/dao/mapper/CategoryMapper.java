@@ -12,10 +12,11 @@ public interface CategoryMapper {
     @Select("select * from my_category where id=#{category_id}")
     Category findById(int category_id);
 
-    @Select("select * from my_article where category_id=#{id}")
-    Article selectArticle(int id);
+    @Select("select * from my_article where category_id=#{id} ORDER BY createDate DESC")
+    List<Article> selectArticle(int id);
 
-    @Select("select * from my_category")
+    @Select("select category_name, category_id as id,count(*)as count from my_category JOIN my_article on my_category.id=my_article.category_id GROUP BY my_category.id")
+
     List<Category> selectAll();
 
 }
