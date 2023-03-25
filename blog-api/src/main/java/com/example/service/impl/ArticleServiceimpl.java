@@ -65,15 +65,17 @@ public class ArticleServiceimpl implements ArticleService {
     @Override
     public Result selectArticleByTagId(Long id) {
         List<Long> articleIdList = tagService.selectAListId(id);
+        List<Article> articleList=articleMapper.selectArticleByTagId(id);
 
-        if (articleIdList == null || articleIdList.size() == 0) {
-            return Result.success("标签不存在");
+        if (articleList == null || articleList.size() == 0) {
+            return Result.fail(400,"没有文章",null);
         }
 
-        List<ArticleVo> articleVoList = new ArrayList<>();
-        for (Long l : articleIdList) {
-            articleVoList.add(selectArticleById(l));
-        }
+        List<ArticleVo> articleVoList = copyList(articleList,false,false,false);
+//        for (Long l : articleIdList) {
+//            articleVoList.add(selectArticleById(l));
+//        }
+
 
         return Result.success(articleVoList);
     }
