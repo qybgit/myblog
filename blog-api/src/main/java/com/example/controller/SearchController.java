@@ -19,7 +19,6 @@ public class SearchController {
 
     @PostMapping("/search")
     public Result search(@RequestBody Search search){
-        System.out.println(search.getText());
         return searchService.search(search.getText());
     }
 }

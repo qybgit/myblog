@@ -31,7 +31,7 @@ public class LoginServiceimpl implements LoginService {
     @Override
     public Result register(Account account) {
         if (StringUtils.isBlank(account.getNickName()) && StringUtils.isBlank(account.getPassword())) {
-            return Result.fail(400, "登陆信息 ", null);
+            return Result.fail(400, "请填写登陆信息 ", null);
         }
         SysUser sysUser1=sysUserMapper.selectUSerByName(account.getNickName());
         if(sysUser1!=null){
