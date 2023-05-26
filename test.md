@@ -1,5 +1,5 @@
 <<<<<<< HEAD
 hello,test
 =======
-hello,texts
->>>>>>> daliy/1.0
+
+> > > > > > > daliy/1.0
